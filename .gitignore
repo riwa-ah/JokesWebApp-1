@@ -1,33 +1,54 @@
 
-# Visual Studio files
+############################
+# Visual Studio
+############################
 .vs/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
+############################
 # Build output
+############################
 bin/
 obj/
 out/
 
+############################
 # ASP.NET Core
-wwwroot/lib/
+############################
 appsettings.Development.json
-
-# Logs
-*.log
-
-# User secrets
 secrets.json
 
-# IDE folders
+############################
+# wwwroot (optional libs)
+############################
+wwwroot/lib/
+
+############################
+# Logs
+############################
+*.log
+
+############################
+# IDEs
+############################
 .vscode/
 .idea/
 
+############################
 # OS files
+############################
 .DS_Store
 Thumbs.db
 
-# NuGet packages (optional if not restoring automatically)
+############################
+# NuGet packages (optional)
+############################
 *.nupkg
+
+############################
+# User-specific project files
+############################
+*.csproj.user
