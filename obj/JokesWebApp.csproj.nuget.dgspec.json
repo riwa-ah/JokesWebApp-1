@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "restore": {
+  "restore": { 
     "C:\\Users\\pcs\\source\\repos\\JokesWebApp\\JokesWebApp\\JokesWebApp.csproj": {}
   },
   "projects": {
@@ -101,4 +101,4 @@
       }
     }
   }
-}
+} 
