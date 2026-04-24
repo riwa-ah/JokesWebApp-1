@@ -1,23 +1,17 @@
-﻿
+﻿<div class="container" style="max-width:560px; margin:0 auto; padding:32px 16px;">
+    <h1 class="page-header">🔍 Search Jokes</h1>
 
-<h4>Search for a Joke</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="ShowSearchResults"> 
-
-            <div class="form-group">
-                <label formaction="SearchPhrase" class="control-label"></label>
-                <input name="SearchPhrase" class="form-control" />
+    <div class="card-joke" style="margin-top:16px;">
+        <form asp-action="ShowSearchResults">
+            <div class="form-group" style="margin-bottom:18px;">
+                <label class="control-label">🔎 Search Phrase</label>
+                <input name="SearchPhrase" class="form-control" placeholder="Type a keyword..." />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="🔍 Find Jokes!" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="back-link">← Back to All Jokes</a>
 </div>
-

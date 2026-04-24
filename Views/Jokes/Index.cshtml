@@ -1,37 +1,66 @@
-﻿@model IEnumerable<JokesWebApp.Models.Joke> //IEnumerable is a list
-
+﻿@model IEnumerable<JokesWebApp.Models.Joke>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All Jokes";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.JokeQuestion)
-            </th>
-            
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JokeQuestion)
-            </td>
-           
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+<div class="ji-header">
+    <h1 class="page-header">😂 All Jokes</h1>
+    <a asp-action="Create" class="btn btn-primary" style="font-size:1.05rem;">+ Add New Joke</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="ji-empty">
+        <span class="ji-empty-icon">🦗</span>
+        <h2>Crickets...</h2>
+        <p>No jokes here yet. Be the first brave soul to add one!</p>
+        <a asp-action="Create" class="btn btn-primary">Add the First Joke ✍️</a>
+    </div>
 }
-    </tbody>
-</table>
+else
+{
+    <div class="ji-grid">
+        @{
+            int i = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <div class="joke-card-wrap" onclick="flipCard(this, event)">
+                <div class="joke-card-inner">
+
+                    <!-- FRONT -->
+                    <div class="joke-front">
+                        <div class="joke-front-top">
+                            <p class="joke-question">@Html.DisplayFor(m => item.JokeQuestion)</p>
+                            <span class="joke-num">#@i</span>
+                        </div>
+                        <span class="joke-flip-hint">Click to reveal punchline</span>
+                    </div>
+
+                    <!-- BACK -->
+                    <div class="joke-back">
+                        <span class="joke-punchline-label">🥁 PUNCHLINE</span>
+                        <p class="joke-answer">@Html.DisplayFor(m => item.JokeAnswer) 😂</p>
+                        <div class="joke-actions">
+                            <a asp-action="Edit" asp-route-id="@item.Id">✏️ Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.Id">👁 Info</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="del">🗑 Delete</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            i++;
+        }
+    </div>
+}
+
+<script>
+    function flipCard(card, e) {
+        // don't flip when clicking action links
+        if (e.target.tagName === 'A') return;
+        card.classList.toggle('flipped');
+    }
+</script>

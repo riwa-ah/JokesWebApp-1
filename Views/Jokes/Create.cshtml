@@ -1,38 +1,38 @@
 ﻿@model JokesWebApp.Models.Joke
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add a Joke";
 }
 
-<h1>Create</h1>
+<div class="container" style="max-width:560px; margin:0 auto; padding:32px 16px;">
+    <h1 class="page-header">✍️ New Joke</h1>
 
-<h4>Joke</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <div class="card-joke" style="margin-top:12px;">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="JokeQuestion" class="control-label"></label>
-                <input asp-for="JokeQuestion" class="form-control" />
+            <div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom:12px;"></div>
+
+            <div class="form-group" style="margin-bottom:18px;">
+                <label asp-for="JokeQuestion" class="control-label">🎤 The Setup (Question)</label>
+                <input asp-for="JokeQuestion" class="form-control" placeholder="Why did the chicken cross the road?" />
                 <span asp-validation-for="JokeQuestion" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="JokeAnswer" class="control-label"></label>
-                <input asp-for="JokeAnswer" class="form-control" />
+
+            <div class="form-group" style="margin-bottom:22px;">
+                <label asp-for="JokeAnswer" class="control-label">🥁 The Punchline (Answer)</label>
+                <input asp-for="JokeAnswer" class="form-control" placeholder="To get to the other side!" />
                 <span asp-validation-for="JokeAnswer" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="🚀 Submit Joke!" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="back-link">← Back to All Jokes</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
