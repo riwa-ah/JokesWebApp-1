@@ -3,8 +3,8 @@ WORKDIR /src
 
 COPY . .
 
-RUN dotnet restore JokesWebApp.csproj
-RUN dotnet publish JokesWebApp.csproj -c Release -o /app/publish
+RUN dotnet restore Practice1-.sln
+RUN dotnet publish Practice1-.sln -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
