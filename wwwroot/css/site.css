@@ -64,19 +64,42 @@ h1, h2, h3, h4 {
         transform: scale(1.05) rotate(-1deg);
     }
 
+/* 🔥 NEW MENU STYLE */
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.nav-item {
+    list-style: none;
+}
+
 .nav-link {
     font-weight: 800;
     color: var(--ink) !important;
     font-size: 1rem;
-    padding: 6px 14px !important;
-    border-radius: 8px;
-    transition: background 0.15s, transform 0.15s;
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 8px 18px !important;
+    display: inline-block;
+    transition: all 0.15s ease;
 }
 
+    /* 🔴 HOVER EFFECT */
     .nav-link:hover {
         background: var(--red);
         color: var(--white) !important;
-        transform: translateY(-2px);
+        transform: translate(-2px, -2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    /* ✅ ACTIVE PAGE */
+    .nav-link.active {
+        background: var(--red);
+        color: var(--white) !important;
     }
 
 /* ── Buttons ── */
