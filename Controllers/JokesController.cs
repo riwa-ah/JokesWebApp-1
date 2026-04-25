@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JokesWebApp.Data;
 using JokesWebApp.Models;
@@ -23,151 +22,140 @@ namespace JokesWebApp.Controllers
         // GET: Jokes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Joke.ToListAsync());
+            var jokes = await _context.Joke.ToListAsync() ?? new List<Joke>();
+            return View(jokes);
         }
-        //GET: Jokes/showSearchForm
-        public async Task<IActionResult> ShowSearchForm()
+
+        // GET: Search Form
+        public IActionResult ShowSearchForm()
         {
             return View();
         }
-        //GET: Jokes/ShowSearchResults
-        public async Task<IActionResult> ShowSearchResults(string SearchPhrase) //searchPhrase is found in the ShowSearchForm form.
+
+        // GET: Search Results (FIXED)
+        public async Task<IActionResult> ShowSearchResults(string SearchPhrase)
         {
-            return View("Index", await _context.Joke.Where(j=> j.JokeQuestion.Contains(SearchPhrase)).ToListAsync()); //we added where similar to sql to filter the search based on the phrase entered.
+            // Prevent empty/null search
+            if (string.IsNullOrWhiteSpace(SearchPhrase))
+            {
+                return View("Index", new List<Joke>());
+            }
+
+            // Safe query (prevents null JokeQuestion crash)
+            var result = await _context.Joke
+                .Where(j => !string.IsNullOrEmpty(j.JokeQuestion) &&
+                            j.JokeQuestion.Contains(SearchPhrase))
+                .ToListAsync();
+
+            return View("Index", result);
         }
-        // GET: Jokes/Details/5
+
+        // GET: Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var joke = await _context.Joke
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (joke == null)
-            {
-                return NotFound();
-            }
+
+            if (joke == null) return NotFound();
 
             return View(joke);
         }
 
-        // GET: Jokes/Create
-
-        [Authorize] //it will show a login page inorder to login before creating a joke.
+        // GET: Create
+        [Authorize]
         public IActionResult Create()
         {
-            return View();
+            return View(new Joke());
         }
 
-        // POST: Jokes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]//to protect the data
+        // POST: Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(joke);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(joke);
-        }
-
-        // GET: Jokes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+                return View(joke);
             }
 
-            var joke = await _context.Joke.FindAsync(id);
-            if (joke == null)
-            {
-                return NotFound();
-            }
-            return View(joke);
-        }
-
-        // POST: Jokes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize] //no unauthorized edits 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
-        {
-            if (id != joke.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(joke);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!JokeExists(joke.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(joke);
-        }
-
-        // GET: Jokes/Delete/5
-        [Authorize] //no unauthorized deletions
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var joke = await _context.Joke
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (joke == null)
-            {
-                return NotFound();
-            }
-
-            return View(joke);
-        }
-
-        // POST: Jokes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var joke = await _context.Joke.FindAsync(id);
-            if (joke != null)
-            {
-                _context.Joke.Remove(joke);
-            }
-
+            _context.Add(joke);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool JokeExists(int id)
+        // GET: Edit
+        [Authorize]
+        public async Task<IActionResult> Edit(int? id)
         {
-            return _context.Joke.Any(e => e.Id == id);
+            if (id == null) return NotFound();
+
+            var joke = await _context.Joke.FindAsync(id);
+            if (joke == null) return NotFound();
+
+            return View(joke);
+        }
+
+        // POST: Edit
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
+        {
+            if (id != joke.Id) return NotFound();
+
+            if (!ModelState.IsValid)
+            {
+                return View(joke);
+            }
+
+            try
+            {
+                _context.Update(joke);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Joke.Any(e => e.Id == joke.Id))
+                    return NotFound();
+                else
+                    throw;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Delete
+        [Authorize]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var joke = await _context.Joke
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (joke == null) return NotFound();
+
+            return View(joke);
+        }
+
+        // POST: Delete
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var joke = await _context.Joke.FindAsync(id);
+
+            if (joke != null)
+            {
+                _context.Joke.Remove(joke);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

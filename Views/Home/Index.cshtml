@@ -1,8 +1,103 @@
 ﻿@{
-    ViewData["Title"] = "Jokes";
+    ViewData["Title"] = "Ha Ha Hub — Home of Funny Jokes";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Jokes App</h1>
-    <p>For good humor that's not found anywhere else</p>
+
+<!-- HERO -->
+<div class="hh-hero">
+    <span class="hh-badge">🎭 100% Certified Funny</span>
+    <h1 class="hh-title">Ha Ha Hub</h1>
+    <p class="hh-sub">The internet's goofiest corner. Browse hundreds of jokes, share your best punchlines, and make the world laugh — one groan at a time.</p>
+    <div class="hh-ctas">
+        <a asp-controller="Jokes" asp-action="Index" class="btn btn-primary" style="font-size:1.2rem;padding:12px 30px;">Browse All Jokes 👉</a>
+        <a asp-controller="Jokes" asp-action="Create" class="btn btn-danger" style="font-size:1.2rem;padding:12px 30px;">Add Your Own ✍️</a>
+    </div>
+    <div class="hh-stats">
+        <div class="hh-stat"><span class="hh-stat-num">500+</span><span class="hh-stat-label">Jokes Stored</span></div>
+        <div class="hh-stat"><span class="hh-stat-num">100%</span><span class="hh-stat-label">Dad-Joke Approved</span></div>
+        <div class="hh-stat"><span class="hh-stat-num">0</span><span class="hh-stat-label">Bad Moods Allowed</span></div>
+        <div class="hh-stat"><span class="hh-stat-num">∞</span><span class="hh-stat-label">Laughs Available</span></div>
+    </div>
 </div>
+
+<!-- HOW IT WORKS -->
+<div class="hh-section">
+    <h2 class="hh-section-title">How It Works</h2>
+    <div class="hh-steps">
+        <div class="hh-step">
+            <span class="hh-step-num">01</span>
+            <h3>Browse Jokes</h3>
+            <p>Scroll through our ever-growing collection of jokes submitted by fellow funny people.</p>
+        </div>
+        <div class="hh-step">
+            <span class="hh-step-num">02</span>
+            <h3>Reveal the Punchline</h3>
+            <p>Click a joke card to flip it and reveal the punchline. Try not to snort-laugh.</p>
+        </div>
+        <div class="hh-step">
+            <span class="hh-step-num">03</span>
+            <h3>Add Your Own</h3>
+            <p>Think you're funny? Prove it. Submit your best joke and earn eternal bragging rights.</p>
+        </div>
+        <div class="hh-step">
+            <span class="hh-step-num">04</span>
+            <h3>Edit or Delete</h3>
+            <p>Changed your mind? Your jokes are yours. Edit, polish, or delete them if they flopped.</p>
+        </div>
+    </div>
+</div>
+
+<!-- JOKE OF THE DAY -->
+<div class="hh-featured">
+    <h2 class="hh-section-title">Joke of the Day</h2>
+    <div class="hh-joke-card">
+        <span class="ftag">⭐ FEATURED</span>
+        <p class="hh-joke-q">Why don't scientists trust atoms?</p>
+        <button class="btn-reveal" onclick="toggleFeatured(this)">🥁 Reveal the Punchline</button>
+        <div class="hh-punchline" id="featuredPunchline">Because they make up everything! 😂</div>
+    </div>
+</div>
+
+<!-- WHY JOIN -->
+<div class="hh-why">
+    <h2 class="hh-section-title">Why Ha Ha Hub?</h2>
+    <div class="hh-why-grid">
+        <div class="hh-why-card">
+            <div class="hh-why-icon" style="background:#FFF9C4;">😂</div>
+            <h3>Always Free</h3>
+            <p>No paywalls, no subscriptions, no crying. Just jokes, for free, forever.</p>
+        </div>
+        <div class="hh-why-card">
+            <div class="hh-why-icon" style="background:#FFE0E0;">🙈</div>
+            <h3>No Cringe Filter</h3>
+            <p>Dad jokes, puns, groaners — all welcome. The worse the joke, the better.</p>
+        </div>
+        <div class="hh-why-card">
+            <div class="hh-why-icon" style="background:#E0F7FA;">🛠️</div>
+            <h3>Full Control</h3>
+            <p>Create, edit, and delete your jokes anytime. Your humor, your rules.</p>
+        </div>
+        <div class="hh-why-card">
+            <div class="hh-why-icon" style="background:#E8F5E9;">🔍</div>
+            <h3>Search Anything</h3>
+            <p>Looking for a chicken joke? A knock-knock? Search and find it in seconds.</p>
+        </div>
+    </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="hh-cta-banner">
+    <div class="hh-cta-inner">
+        <h2>Ready to LOL?</h2>
+        <p>Stop reading this and start laughing. Go look at some jokes already.</p>
+        <a asp-controller="Jokes" asp-action="Index" class="btn btn-primary" style="font-size:1.2rem;padding:12px 32px;background:var(--yellow);border-color:var(--ink);color:var(--ink);">Let's Go! 🚀</a>
+    </div>
+</div>
+
+<script>
+    function toggleFeatured(btn) {
+        const p = document.getElementById('featuredPunchline');
+        const showing = p.classList.toggle('visible');
+        btn.textContent = showing ? '🙈 Hide the Punchline' : '🥁 Reveal the Punchline';
+    }
+</script>

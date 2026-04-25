@@ -1,30 +1,31 @@
 ﻿@model JokesWebApp.Models.Joke
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Joke Details";
 }
 
-<h1>Details</h1>
+<div class="container" style="max-width:600px; margin:0 auto; padding:32px 16px;">
+    <h1 class="page-header">👁 Joke Details</h1>
 
-<div>
-    <h4>Joke</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.JokeQuestion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.JokeQuestion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.JokeAnswer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.JokeAnswer)
-        </dd>
-    </dl>
+    <div class="card-joke" style="margin-top:16px;">
+        <p style="font-family:'Bangers',cursive; font-size:1.2rem; letter-spacing:1px; margin-bottom:14px; color:#333;">
+            🎤 @Html.DisplayFor(model => model.JokeQuestion)
+        </p>
+
+        <button class="btn-reveal" onclick="revealAnswer()">Show Punchline 🥁</button>
+
+        <div class="speech-bubble" id="answerBubble">
+            😂 @Html.DisplayFor(model => model.JokeAnswer)
+        </div>
+    </div>
+
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">✏️ Edit</a>
+        <a asp-action="Index" class="back-link">← All Jokes</a>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<script>
+    function revealAnswer() {
+        document.getElementById('answerBubble').classList.toggle('show');
+    }
+</script>
