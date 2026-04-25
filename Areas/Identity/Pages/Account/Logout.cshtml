@@ -1,0 +1,133 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<style>
+    .auth-wrap {
+        min-height: calc(100vh - 160px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .auth-card {
+        background: var(--white);
+        border: 3px solid var(--ink);
+        border-radius: 20px;
+        box-shadow: 8px 8px 0 var(--ink);
+        padding: 40px 36px;
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+    }
+
+    .auth-emoji {
+        font-size: 3.5rem;
+        display: block;
+        margin-bottom: 8px;
+        animation: popIn 0.5s cubic-bezier(.36,1.5,.7,1) both;
+    }
+
+    @@keyframes popIn {
+        from {
+            transform: scale(0) rotate(-15deg);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+    }
+
+    .auth-title {
+        font-family: 'Bangers', cursive;
+        font-size: 2.6rem;
+        letter-spacing: 3px;
+        color: var(--ink);
+        text-shadow: 3px 3px 0 var(--yellow);
+        margin-bottom: 8px;
+    }
+
+    .auth-sub {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 28px;
+        line-height: 1.5;
+    }
+
+    .btn-auth {
+        width: 100%;
+        font-family: 'Bangers', cursive;
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+        background: var(--red);
+        color: #fff;
+        border: 3px solid var(--ink);
+        border-radius: 14px;
+        box-shadow: 5px 5px 0 var(--ink);
+        padding: 12px;
+        cursor: pointer;
+        transition: transform 0.1s, box-shadow 0.1s;
+        margin-bottom: 14px;
+    }
+
+        .btn-auth:hover {
+            transform: translate(-2px,-2px);
+            box-shadow: 7px 7px 0 var(--ink);
+            background: #cc1100;
+        }
+
+        .btn-auth:active {
+            transform: translate(3px,3px);
+            box-shadow: 2px 2px 0 var(--ink);
+        }
+
+    .btn-home {
+        display: inline-block;
+        font-family: 'Bangers', cursive;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        background: var(--yellow);
+        color: var(--ink);
+        border: 3px solid var(--ink);
+        border-radius: 14px;
+        box-shadow: 4px 4px 0 var(--ink);
+        padding: 9px 24px;
+        text-decoration: none;
+        transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+        .btn-home:hover {
+            transform: translate(-2px,-2px);
+            box-shadow: 6px 6px 0 var(--ink);
+            color: var(--ink);
+        }
+</style>
+
+<div class="auth-wrap">
+    <div class="auth-card">
+        @if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <span class="auth-emoji">👋</span>
+            <h1 class="auth-title">Leaving Already?</h1>
+            <p class="auth-sub">The jokes will miss you! Come back soon. 😢</p>
+            <form asp-area="Identity" asp-page="/Account/Logout"
+                  asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                <button type="submit" class="btn-auth">🚪 Yes, Log Me Out</button>
+            </form>
+            <a asp-controller="Home" asp-action="Index" class="btn-home">😂 Stay & Keep Laughing</a>
+        }
+        else
+        {
+            <span class="auth-emoji">✅</span>
+            <h1 class="auth-title">See Ya!</h1>
+            <p class="auth-sub">You've been successfully logged out. The jokes will be here when you get back!</p>
+            <a asp-controller="Home" asp-action="Index" class="btn-home">🏠 Back to Home</a>
+        }
+    </div>
+</div>

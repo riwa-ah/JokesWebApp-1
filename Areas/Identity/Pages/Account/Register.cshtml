@@ -1,0 +1,234 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<style>
+    .auth-wrap {
+        min-height: calc(100vh - 160px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .auth-card {
+        background: var(--white);
+        border: 3px solid var(--ink);
+        border-radius: 20px;
+        box-shadow: 8px 8px 0 var(--ink);
+        padding: 40px 36px;
+        width: 100%;
+        max-width: 440px;
+    }
+
+    .auth-emoji {
+        font-size: 3.5rem;
+        display: block;
+        text-align: center;
+        margin-bottom: 8px;
+        animation: popIn 0.5s cubic-bezier(.36,1.5,.7,1) both;
+    }
+
+    @@keyframes popIn {
+        from {
+            transform: scale(0) rotate(-15deg);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1) rotate(0deg);
+            opacity: 1;
+        }
+    }
+
+    .auth-title {
+        font-family: 'Bangers', cursive;
+        font-size: 2.6rem;
+        letter-spacing: 3px;
+        text-align: center;
+        color: var(--ink);
+        text-shadow: 3px 3px 0 var(--yellow);
+        margin-bottom: 6px;
+    }
+
+    .auth-sub {
+        text-align: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 28px;
+    }
+
+    .auth-divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 22px 0;
+        font-family: 'Bangers', cursive;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        color: #888;
+    }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: #ddd;
+            border-radius: 2px;
+        }
+
+    .auth-links {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+        .auth-links a {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--ink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.15s;
+        }
+
+            .auth-links a:hover {
+                color: var(--red);
+            }
+
+    .form-floating label {
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .form-floating .form-control {
+        border: 2.5px solid var(--ink);
+        border-radius: 12px;
+        font-weight: 700;
+        background: var(--white);
+    }
+
+        .form-floating .form-control:focus {
+            border-color: var(--red);
+            box-shadow: 4px 4px 0 var(--ink);
+        }
+
+    .btn-auth {
+        width: 100%;
+        font-family: 'Bangers', cursive;
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+        background: var(--red);
+        color: #fff;
+        border: 3px solid var(--ink);
+        border-radius: 14px;
+        box-shadow: 5px 5px 0 var(--ink);
+        padding: 12px;
+        cursor: pointer;
+        transition: transform 0.1s, box-shadow 0.1s;
+        margin-top: 8px;
+        display: block;
+    }
+
+        .btn-auth:hover {
+            transform: translate(-2px,-2px);
+            box-shadow: 7px 7px 0 var(--ink);
+            background: #cc1100;
+        }
+
+        .btn-auth:active {
+            transform: translate(3px,3px);
+            box-shadow: 2px 2px 0 var(--ink);
+        }
+
+    .password-rules {
+        background: #FFF9C4;
+        border: 2px solid var(--ink);
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #555;
+        margin-bottom: 16px;
+        line-height: 1.7;
+    }
+
+        .password-rules strong {
+            font-family: 'Bangers', cursive;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--ink);
+            display: block;
+            margin-bottom: 2px;
+        }
+</style>
+
+<div class="auth-wrap">
+    <div class="auth-card">
+
+        <span class="auth-emoji">🎉</span>
+        <h1 class="auth-title">Join the Fun!</h1>
+        <p class="auth-sub">Create an account and start sharing jokes.</p>
+
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert" style="margin-bottom:14px;"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email">📧 Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="password-rules">
+                <strong>🔒 Password must have:</strong>
+                at least 6 characters · one uppercase · one number · one special character
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label asp-for="Input.Password">🔒 Password</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                <label asp-for="Input.ConfirmPassword">✅ Confirm Password</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button id="registerSubmit" type="submit" class="btn-auth">🎊 Create My Account</button>
+
+            <div class="auth-links">
+                <a asp-page="./Login">😄 Already have an account? Log in</a>
+            </div>
+        </form>
+
+        @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+        {
+            <div class="auth-divider">OR</div>
+            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                @foreach (var provider in Model.ExternalLogins!)
+                {
+                    <button type="submit" class="btn-auth" name="provider" value="@provider.Name"
+                            title="Register using your @provider.DisplayName account"
+                            style="background:var(--teal);margin-bottom:8px;">
+                        🔗 Sign up with @provider.DisplayName
+                    </button>
+                }
+            </form>
+        }
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -43,20 +43,23 @@ h1, h2, h3, h4 {
     line-height: 1.1;
 }
 
-/* ── Navbar ── */
+/* ───────────────────────────────────────
+   NAVBAR
+─────────────────────────────────────── */
 .navbar {
     background-color: var(--yellow) !important;
     border-bottom: var(--border);
     box-shadow: 0 4px 0 var(--ink);
-    padding: 12px 24px;
+    padding: 10px 24px;
 }
 
 .navbar-brand {
     font-family: 'Bangers', cursive;
-    font-size: 2rem !important;
+    font-size: 2.4rem !important;
     color: var(--ink) !important;
     letter-spacing: 3px;
-    text-shadow: 3px 3px 0 var(--red);
+    text-shadow: 2px 2px 0 var(--red);
+    text-decoration: none;
     transition: transform 0.15s;
 }
 
@@ -64,45 +67,144 @@ h1, h2, h3, h4 {
         transform: scale(1.05) rotate(-1deg);
     }
 
-/* 🔥 NEW MENU STYLE */
+/* Force navbar items into a horizontal row always */
 .navbar-nav {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
+    flex-direction: row !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .nav-item {
     list-style: none;
 }
 
-.nav-link {
+/* Regular nav links: Home, Jokes, Search, Privacy */
+.comic-nav-link {
+    font-family: 'Bangers', cursive;
     font-weight: 800;
+    letter-spacing: 1.5px;
     color: var(--ink) !important;
     font-size: 1rem;
-    background: var(--white);
-    border: var(--border);
-    box-shadow: var(--shadow);
-    border-radius: var(--radius);
-    padding: 8px 18px !important;
-    display: inline-block;
-    transition: all 0.15s ease;
+    padding: 5px 12px !important;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+    white-space: nowrap;
 }
 
-    /* 🔴 HOVER EFFECT */
-    .nav-link:hover {
+    .comic-nav-link:hover {
         background: var(--red);
+        border-color: var(--ink);
         color: var(--white) !important;
-        transform: translate(-2px, -2px);
-        box-shadow: var(--shadow-lg);
+        transform: translateY(-2px);
     }
 
-    /* ✅ ACTIVE PAGE */
-    .nav-link.active {
+    .comic-nav-link.active {
         background: var(--red);
+        border-color: var(--ink);
         color: var(--white) !important;
     }
 
-/* ── Buttons ── */
+/* Auth pills */
+.nav-auth-name {
+    font-family: 'Bangers', cursive;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    color: var(--ink) !important;
+    background: var(--white);
+    border: 2px solid var(--ink);
+    border-radius: 99px;
+    padding: 3px 14px;
+    box-shadow: 2px 2px 0 var(--ink);
+    text-decoration: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+    .nav-auth-name:hover {
+        transform: translate(-1px,-1px);
+        box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .nav-auth-name span {
+        color: var(--red);
+    }
+
+.btn-logout {
+    font-family: 'Bangers', cursive;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    background: var(--red);
+    color: #fff !important;
+    border: 2px solid var(--ink);
+    border-radius: 99px;
+    padding: 3px 14px;
+    box-shadow: 2px 2px 0 var(--ink);
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    line-height: 1.6;
+    white-space: nowrap;
+}
+
+    .btn-logout:hover {
+        transform: translate(-1px,-1px);
+        box-shadow: 3px 3px 0 var(--ink);
+        background: #cc1100;
+    }
+
+.btn-nav-register {
+    font-family: 'Bangers', cursive;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    background: var(--red);
+    color: #fff !important;
+    border: 2px solid var(--ink);
+    border-radius: 99px;
+    padding: 3px 14px;
+    box-shadow: 2px 2px 0 var(--ink);
+    text-decoration: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+    .btn-nav-register:hover {
+        transform: translate(-1px,-1px);
+        box-shadow: 3px 3px 0 var(--ink);
+        background: #cc1100;
+    }
+
+.btn-nav-login {
+    font-family: 'Bangers', cursive;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    background: var(--yellow);
+    color: var(--ink) !important;
+    border: 2px solid var(--ink);
+    border-radius: 99px;
+    padding: 3px 14px;
+    box-shadow: 2px 2px 0 var(--ink);
+    text-decoration: none;
+    transition: transform 0.1s, box-shadow 0.1s;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+    .btn-nav-login:hover {
+        transform: translate(-1px,-1px);
+        box-shadow: 3px 3px 0 var(--ink);
+        background: var(--orange);
+        color: #fff !important;
+    }
+
+/* ───────────────────────────────────────
+   BUTTONS
+─────────────────────────────────────── */
 .btn {
     font-family: 'Bangers', cursive;
     letter-spacing: 2px;
@@ -153,7 +255,9 @@ h1, h2, h3, h4 {
     outline: none;
 }
 
-/* ── Cards ── */
+/* ───────────────────────────────────────
+   CARDS
+─────────────────────────────────────── */
 .card-joke {
     background: var(--white);
     border: var(--border);
@@ -169,7 +273,9 @@ h1, h2, h3, h4 {
         box-shadow: 10px 10px 0 var(--ink);
     }
 
-/* ── Forms ── */
+/* ───────────────────────────────────────
+   FORMS
+─────────────────────────────────────── */
 .form-control {
     border: var(--border);
     border-radius: var(--radius);
@@ -195,7 +301,9 @@ label.control-label {
     display: block;
 }
 
-/* ── Table ── */
+/* ───────────────────────────────────────
+   TABLE
+─────────────────────────────────────── */
 .table {
     border: var(--border);
     border-radius: var(--radius);
@@ -249,7 +357,9 @@ label.control-label {
                 text-decoration: underline;
             }
 
-/* ── Page Headers ── */
+/* ───────────────────────────────────────
+   PAGE HEADERS
+─────────────────────────────────────── */
 .page-header {
     display: inline-block;
     background: var(--red);
@@ -265,7 +375,9 @@ label.control-label {
     transform: rotate(-1.5deg);
 }
 
-/* ── Hero (Home page) ── */
+/* ───────────────────────────────────────
+   HERO (old home page — kept for safety)
+─────────────────────────────────────── */
 .hero-section {
     text-align: center;
     padding: 60px 20px 40px;
@@ -322,7 +434,9 @@ label.control-label {
     }
 }
 
-/* ── Speech bubble (joke reveal) ── */
+/* ───────────────────────────────────────
+   SPEECH BUBBLE
+─────────────────────────────────────── */
 .speech-bubble {
     position: relative;
     background: var(--yellow);
@@ -370,7 +484,9 @@ label.control-label {
     }
 }
 
-/* ── "Show Answer" button ── */
+/* ───────────────────────────────────────
+   REVEAL BUTTON
+─────────────────────────────────────── */
 .btn-reveal {
     background: var(--teal);
     color: var(--white);
@@ -395,7 +511,9 @@ label.control-label {
         box-shadow: 2px 2px 0 var(--ink);
     }
 
-/* ── Back link ── */
+/* ───────────────────────────────────────
+   BACK LINK
+─────────────────────────────────────── */
 a.back-link {
     font-family: 'Bangers', cursive;
     letter-spacing: 1.5px;
@@ -420,13 +538,17 @@ a.back-link {
         color: var(--red);
     }
 
-/* ── Validation ── */
+/* ───────────────────────────────────────
+   VALIDATION
+─────────────────────────────────────── */
 .text-danger {
     font-weight: 700;
     font-size: 0.85rem;
 }
 
-/* ── Footer ── */
+/* ───────────────────────────────────────
+   FOOTER
+─────────────────────────────────────── */
 footer {
     width: 100%;
     background-color: var(--dark);
@@ -439,7 +561,10 @@ footer {
     height: 52px;
     border-top: var(--border);
 }
-/* ── Responsive ── */
+
+/* ───────────────────────────────────────
+   RESPONSIVE
+─────────────────────────────────────── */
 @media (max-width: 576px) {
     .page-header {
         font-size: 2rem;
@@ -453,9 +578,10 @@ footer {
         padding: 10px 12px;
     }
 }
-/*-----HOME PAGE---------*/
 
-
+/* ───────────────────────────────────────
+   HOME PAGE
+─────────────────────────────────────── */
 .hh-hero {
     text-align: center;
     padding: 64px 20px 48px;
@@ -862,8 +988,9 @@ footer {
         opacity: 0.9;
     }
 
-/*-------JOKES INDEX PAGE ------------------*/
-
+/* ───────────────────────────────────────
+   JOKES INDEX PAGE
+─────────────────────────────────────── */
 .ji-header {
     display: flex;
     align-items: center;
@@ -884,7 +1011,7 @@ footer {
     padding: 0 20px 80px;
 }
 
-/* ── Flip Card Shell ── */
+/* Flip Card Shell */
 .joke-card-wrap {
     perspective: 1000px;
     height: 220px;
@@ -904,7 +1031,7 @@ footer {
     transform: rotateY(180deg);
 }
 
-/* ── Front & Back shared ── */
+/* Front & Back shared */
 .joke-front,
 .joke-back {
     position: absolute;
@@ -918,7 +1045,7 @@ footer {
     flex-direction: column;
 }
 
-/* ── Front ── */
+/* Front */
 .joke-front {
     background: var(--white);
     box-shadow: 5px 5px 0 var(--ink);
@@ -970,7 +1097,7 @@ footer {
         color: var(--teal);
     }
 
-/* ── Back ── */
+/* Back */
 .joke-back {
     background: var(--yellow);
     box-shadow: 5px 5px 0 var(--ink);
@@ -1021,6 +1148,8 @@ footer {
         padding: 4px 12px;
         box-shadow: 2px 2px 0 var(--ink);
         transition: transform 0.1s, box-shadow 0.1s;
+        position: relative;
+        z-index: 2;
     }
 
         .joke-actions a:hover {
@@ -1032,7 +1161,7 @@ footer {
             color: var(--red);
         }
 
-/* ── Empty state ── */
+/* Empty state */
 .ji-empty {
     text-align: center;
     padding: 60px 20px;
@@ -1059,7 +1188,7 @@ footer {
     margin-bottom: 20px;
 }
 
-/* ── Color variants (cycle through) ── */
+/* Card color variants */
 .joke-card-wrap:nth-child(4n+1) .joke-front {
     background: #FFFDF0;
 }
@@ -1086,10 +1215,4 @@ footer {
 
 .joke-card-wrap:nth-child(4n+0) .joke-back {
     background: #C4FFD8;
-}
-
-/* prevent card click from following links */
-.joke-actions a {
-    position: relative;
-    z-index: 2;
 }
