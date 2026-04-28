@@ -3,57 +3,97 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - JokesWebApp</title>
-
+    <title>@ViewData["Title"] - Ha Ha Hub</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/JokesWebApp.styles.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        /* Nuclear override — Bootstrap must not win on the navbar row */
+        #mainNavbar {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            gap: 6px !important;
+        }
+
+            #mainNavbar ul,
+            #mainNavbar > ul {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                flex-wrap: wrap !important;
+                gap: 6px !important;
+                list-style: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            #mainNavbar li {
+                list-style: none !important;
+            }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-md" style="background-color:var(--yellow);border-bottom:3px solid var(--ink);box-shadow:0 4px 0 var(--ink);padding:10px 24px;">
+            <div class="container-fluid" style="display:flex;align-items:center;flex-wrap:nowrap;gap:12px;">
 
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    JokesWebApp
+                <!-- Brand -->
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-size:2.4rem !important;">
+                    😂 Ha Ha Hub
                 </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <!-- Mobile toggler -->
+                <button class="navbar-toggler ms-auto" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation"
+                        style="border:2px solid var(--ink);border-radius:8px;background:var(--white);">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- Nav row -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav" style="display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0;width:100%;">
 
-                    <!-- NAV MENU -->
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        <li style="list-style:none;">
+                            <a class="comic-nav-link" asp-area="" asp-controller="Home" asp-action="Index">🏠 Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li style="list-style:none;">
+                            <a class="comic-nav-link" asp-area="" asp-controller="Jokes" asp-action="Index">😂 Jokes</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Jokes" asp-action="Index">Jokes</a>
+                        <li style="list-style:none;">
+                            <a class="comic-nav-link" asp-area="" asp-controller="Jokes" asp-action="ShowSearchForm">🔍 Search</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Jokes" asp-action="ShowSearchForm">Search</a>
+                        <li style="list-style:none;">
+                            <a class="comic-nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">🔒 Privacy</a>
                         </li>
+
+                        <!-- Pushes auth to the right -->
+                        <li style="flex:1;list-style:none;min-width:20px;"></li>
+
+                        <!-- Auth buttons -->
+                        <partial name="_LoginPartial" />
+
                     </ul>
-
-                    <partial name="_LoginPartial" />
-
                 </div>
+
             </div>
         </nav>
     </header>
 
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
+    <div style="max-width:1200px;margin:0 auto;padding:0 16px;">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
 
-    <footer>
-        😂 Ha Ha Hub — Making the world laugh, one groan at a time 😂
+    <footer style="width:100%;background-color:var(--dark);color:var(--yellow);font-family:'Bangers',cursive;letter-spacing:2px;font-size:1.1rem;text-align:center;line-height:52px;height:52px;border-top:3px solid var(--ink);">
+        &copy; 2026 Ha Ha Hub &mdash;
+        <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color:var(--yellow);text-decoration:underline;">Privacy</a>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
