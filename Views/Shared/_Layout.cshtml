@@ -55,29 +55,20 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Nav row -->
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav" style="display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0;width:100%;">
-
-                        <li style="list-style:none;">
-                            <a class="comic-nav-link" asp-area="" asp-controller="Home" asp-action="Index">🏠 Home</a>
-                        </li>
-                        <li style="list-style:none;">
-                            <a class="comic-nav-link" asp-area="" asp-controller="Jokes" asp-action="Index">😂 Jokes</a>
-                        </li>
-                        <li style="list-style:none;">
-                            <a class="comic-nav-link" asp-area="" asp-controller="Jokes" asp-action="ShowSearchForm">🔍 Search</a>
-                        </li>
-                        <li style="list-style:none;">
-                            <a class="comic-nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">🔒 Privacy</a>
-                        </li>
-
-                        <!-- Pushes auth to the right -->
-                        <li style="flex:1;list-style:none;min-width:20px;"></li>
-
-                        <!-- Auth buttons -->
-                        <partial name="_LoginPartial" />
-
+               
+                <div class="navbar-collapse collapse d-md-inline-flex justify-content-between" id="mainNavbar">
+                    <ul>
+                   <li> <ul class="navbar-nav flex-grow-1"
+                        style="display:flex; flex-direction:row; align-items:center; flex-wrap:wrap; gap:6px; list-style:none; margin:0; padding:0;">
+                        <li><a class="comic-nav-link" asp-area="" asp-controller="Home" asp-action="Index">🏠 Home</a></li>
+                        <li><a class="comic-nav-link" asp-area="" asp-controller="Jokes" asp-action="Index">😂 Jokes</a></li>
+                        <li><a class="comic-nav-link" asp-area="" asp-controller="Jokes" asp-action="ShowSearchForm">🔍 Search</a></li>
+                        <li><a class="comic-nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">🔒 Privacy</a></li>
+                    </ul>
+                    </li>
+                    <li>
+                    <partial name="_LoginPartial" />
+                    </li>
                     </ul>
                 </div>
 

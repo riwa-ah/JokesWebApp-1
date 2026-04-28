@@ -12,9 +12,9 @@ namespace JokesWebApp.Controllers
 {
     public class JokesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context; 
 
-        public JokesController(ApplicationDbContext context)
+        public JokesController(ApplicationDbContext context) //constructor
         {
             _context = context;
         }
@@ -22,14 +22,14 @@ namespace JokesWebApp.Controllers
         // GET: Jokes
         public async Task<IActionResult> Index()
         {
-            var jokes = await _context.Joke.ToListAsync() ?? new List<Joke>();
-            return View(jokes);
+            var jokes = await _context.Joke.ToListAsync() ?? new List<Joke>(); //gets all jokes from db
+            return View(jokes); 
         }
 
         // GET: Search Form
         public IActionResult ShowSearchForm()
         {
-            return View();
+            return View(); //only displlayes the page
         }
 
         // GET: Search Results (FIXED)
@@ -44,14 +44,14 @@ namespace JokesWebApp.Controllers
             // Safe query (prevents null JokeQuestion crash)
             var result = await _context.Joke
                 .Where(j => !string.IsNullOrEmpty(j.JokeQuestion) &&
-                            j.JokeQuestion.Contains(SearchPhrase))
+                            j.JokeQuestion.Contains(SearchPhrase)) //checks if there is any questin that have the inputed phrase
                 .ToListAsync();
 
             return View("Index", result);
         }
 
         // GET: Details
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id) //search the joke based on the id
         {
             if (id == null) return NotFound();
 
@@ -64,7 +64,7 @@ namespace JokesWebApp.Controllers
         }
 
         // GET: Create
-        [Authorize]
+        [Authorize] //it needs to login first before creating (Areas-identity)
         public IActionResult Create()
         {
             return View(new Joke());
@@ -72,8 +72,8 @@ namespace JokesWebApp.Controllers
 
         // POST: Create
         [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost] //recieve form data
+        [ValidateAntiForgeryToken] //save it to db
         public async Task<IActionResult> Create([Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
         {
             if (!ModelState.IsValid)
@@ -82,20 +82,20 @@ namespace JokesWebApp.Controllers
             }
 
             _context.Add(joke);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); //save it to db
             return RedirectToAction(nameof(Index));
         }
 
         // GET: Edit
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id) //based on joke id
         {
             if (id == null) return NotFound();
 
-            var joke = await _context.Joke.FindAsync(id);
+            var joke = await _context.Joke.FindAsync(id); 
             if (joke == null) return NotFound();
 
-            return View(joke);
+            return View(joke); //loads the edit page
         }
 
         // POST: Edit
@@ -103,10 +103,10 @@ namespace JokesWebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
-        {
+        { //gets the input
             if (id != joke.Id) return NotFound();
 
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) 
             {
                 return View(joke);
             }
@@ -114,7 +114,7 @@ namespace JokesWebApp.Controllers
             try
             {
                 _context.Update(joke);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); //update changes
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -129,7 +129,7 @@ namespace JokesWebApp.Controllers
 
         // GET: Delete
         [Authorize]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id) 
         {
             if (id == null) return NotFound();
 
