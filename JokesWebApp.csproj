@@ -6,6 +6,7 @@
 		<UserSecretsId>aspnet-JokesWebApp-a18f2662-d054-4029-a06a-7134b0043718</UserSecretsId>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="DotNetEnv" Version="3.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.6" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.23" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.23" />

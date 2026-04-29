@@ -52,3 +52,4 @@ Thumbs.db
 # User-specific project files
 ############################
 *.csproj.user
+.env
