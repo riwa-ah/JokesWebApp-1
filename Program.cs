@@ -1,13 +1,18 @@
 using JokesWebApp.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// Load .env file
+Env.Load();
 
+// Get connection string from environment variable
+var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION")
+    ?? throw new InvalidOperationException("DB_CONNECTION not found in .env file.");
+
+// Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
